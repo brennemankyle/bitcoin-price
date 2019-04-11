@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import './App.scss'
-import CurrentPrice from './components/CurrentPrice/CurrentPrice'
+import { Grommet } from "grommet";
+import { grommet } from "grommet/themes";
+import CurrentPriceContainer from './containers/CurrentPriceContainer/CurrentPriceContainer'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <CurrentPrice />
+        <Grommet theme={grommet} full>
+          <CurrentPriceContainer />
+        </Grommet>
       </div>
     )
   }
