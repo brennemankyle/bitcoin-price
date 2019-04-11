@@ -9,3 +9,4 @@ const coinApi = axios.create({
 })
 
 export default coinApi
+export { apiKey }
