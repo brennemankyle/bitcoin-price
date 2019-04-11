@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import './App.scss'
-import PriceList from './components/PriceList/PriceList'
+import CurrentPrice from './components/CurrentPrice/CurrentPrice'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <PriceList />
+        <CurrentPrice />
       </div>
     )
   }
