@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Box, Heading } from 'grommet'
+import coins from '../../util/coins/coins'
 import coinApi from '../../api/coinApi/coinApi'
 
 class CurrentPrice extends Component {
@@ -12,7 +13,7 @@ class CurrentPrice extends Component {
   }
 
   componentWillMount() {
-    coinApi.get('/exchangerate/BTC').then((response) => {
+    coinApi.get(`/exchangerate/${coins.Litecoin}/${coins.Bitcoin}`).then((response) => {
       console.log(response)
     })
   }
