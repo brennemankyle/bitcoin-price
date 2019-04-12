@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import './App.scss'
 import { Grommet } from "grommet";
 import { grommet } from "grommet/themes";
 import CurrentPriceContainer from './containers/CurrentPriceContainer/CurrentPriceContainer'

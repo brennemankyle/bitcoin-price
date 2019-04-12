@@ -42,6 +42,7 @@ class CurrentPriceContainer extends Component {
         return acc
       }, {})
 
+      // TODO: data sent could be less opaque
       this.setState({
         prices: prices
       })
