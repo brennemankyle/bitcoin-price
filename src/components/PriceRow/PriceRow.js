@@ -1,18 +1,27 @@
-
-
 import React, { Component } from 'react'
-import { TableRow } from 'grommet'
+import { TableRow, TableCell } from 'grommet'
+import coins from '../../util/coins/coins'
 
-class PriceList extends Component {
+class PriceRow extends Component {
   render() {
     return (
       <TableRow>
-        <TableCell key={c.property} scope="col" align={c.align}>
-          {c.label}
+        <TableCell scope="col">
+          {this.props.coinKey}
         </TableCell>
+        <TableCell scope="col">
+          {coins[this.props.coinKey]}
+        </TableCell>
+        {this.props.rates.map((rate, index) => {
+          return (
+            <TableCell key={index} scope="col">
+              {rate} (BTC)
+            </TableCell>
+          )
+        })}
       </TableRow>
     )
   }
 }
 
-export default PriceList
+export default PriceRow

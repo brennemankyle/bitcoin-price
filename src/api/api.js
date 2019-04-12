@@ -23,7 +23,7 @@ class Api {
     return consolidateCoins(coinKeys, outputCoinKey, (key) => [Math.random()])
   }
 
-  testDataGetHistoricalRateFor(coinKeys, outputCoinKey, startTime, period = '1MIN') {
+  testDataGetHistoricRateFor(coinKeys, outputCoinKey, startTime, period = '1MIN') {
     return consolidateCoins(coinKeys, outputCoinKey, (key) => _times(30, () => Math.random()))
   }
 
@@ -35,7 +35,7 @@ class Api {
       })
   }
 
-  getHistoricalRateFor(coinKeys, outputCoinKey, startTime, period = '1MIN') {
+  getHistoricRateFor(coinKeys, outputCoinKey, startTime, period = '1MIN') {
     return consolidateCoins(coinKeys, outputCoinKey, (key) => coinApi.get(`
         ohlcv/${coins[key]}/${coins[outputCoinKey]}/history
         ?period_id=${period}&time_start=${startTime.utc().format()}`))
