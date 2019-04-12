@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import { TableRow, TableCell } from 'grommet'
 import coins from '../../util/coins/coins'
+import _round from 'lodash/round'
 
 class PriceRow extends Component {
+  static defaultProps = {
+    roundPrecision: 3
+  }
+
   render() {
     return (
       <TableRow>
@@ -23,7 +28,7 @@ class PriceRow extends Component {
 
           return (
             <TableCell key={index} scope="col" className={className}>
-              {rate} (BTC)
+              {_round(rate, this.props.roundPrecision)}
             </TableCell>
           )
         })}

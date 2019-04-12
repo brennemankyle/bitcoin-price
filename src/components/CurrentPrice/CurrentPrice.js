@@ -17,7 +17,7 @@ class CurrentPrice extends Component {
               Abbv
             </TableCell>
             <TableCell>
-              Rate
+              Rates (BTC)
             </TableCell>
           </TableRow>
         </TableHeader>
