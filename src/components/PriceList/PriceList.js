@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
-import { Box, Heading } from 'grommet'
+import { Table, TableHeader } from 'grommet'
 
 class PriceList extends Component {
   render() {
     return (
-      <Box>
-        <Heading>Prices</Heading>
-        Hello World
-      </Box>
+      <Table>
+        <TableHeader>
+        </TableHeader>
+        <TableBody>
+        </TableBody>
+      </Table>
     )
   }
 }
