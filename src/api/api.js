@@ -6,7 +6,7 @@ import _times from 'lodash/times'
 
 // TODO: use a different coin api so we don't have to do this consolidation
 const consolidateCoins = (coinKeys, outputCoinKey, func) => {
-  delete coinKeys[coinKeys.indexOf(outputCoinKey)]
+  coinKeys.splice(coinKeys.indexOf(outputCoinKey), 1)
   let promises = _map(coinKeys, func)
 
   return Promise.all(promises).then((values) => {
@@ -23,26 +23,33 @@ class Api {
     return consolidateCoins(coinKeys, outputCoinKey, (key) => [Math.random()])
   }
 
-  testDataGetHistoricRateFor(coinKeys, outputCoinKey, startTime, period = '1MIN') {
-    return consolidateCoins(coinKeys, outputCoinKey, (key) => _times(30, () => Math.random()))
+  testDataGetHistoricRateFor(coinKeys, outputCoinKey, minutesAgo, period = '1MIN') {
+    return consolidateCoins(coinKeys, outputCoinKey, (key) => _times(minutesAgo, () => Math.random()))
   }
 
   getExchangeRateFor(coinKeys, outputCoinKey) {
-    return consolidateCoins(coinKeys, outputCoinKey, (key) => coinApi.get(`
-        /exchangerate/${coins[key]}/${coins[outputCoinKey]}`))
+    return consolidateCoins(coinKeys, outputCoinKey, (key) =>
+        coinApi.get(`/exchangerate/${coins[key]}/${coins[outputCoinKey]}`))
       .then((prices) => {
-        _reduce(prices, (acc, value, key) => acc[key] = [value.data.rate], {})
+        return _reduce(prices,
+          (acc, value, key) => {
+            acc[key] = [value.data.rate]
+
+            return acc
+          }, {})
       })
   }
 
-  getHistoricRateFor(coinKeys, outputCoinKey, startTime, period = '1MIN') {
-    return consolidateCoins(coinKeys, outputCoinKey, (key) => coinApi.get(`
-        ohlcv/${coins[key]}/${coins[outputCoinKey]}/history
-        ?period_id=${period}&time_start=${startTime.utc().format()}`))
+  getHistoricRateFor(coinKeys, outputCoinKey, minutesAgo, period = '1MIN') {
+    return consolidateCoins(coinKeys, outputCoinKey, (key) =>
+        coinApi.get(`/ohlcv/${coins[key]}/${coins[outputCoinKey]}/latest?period_id=${period}&limit=${minutesAgo}`))
       .then((prices) => {
-        _reduce(prices, (acc, value, key) => acc[key] = value.data
-          .map((record) => (record.price_high + record.price_low)/2),
-        {})
+        return _reduce(prices,
+          (acc, value, key) => {
+            acc[key] = value.data.map((record) => (record.price_high + record.price_low)/2)
+
+            return acc
+          }, {})
       })
   }
 }

@@ -2,17 +2,9 @@ import React, { Component } from 'react'
 import { Table, TableBody, TableHeader, TableRow, TableCell, Heading } from 'grommet'
 import PriceList from '../PriceList/PriceList'
 import PriceLegend from '../PriceLegend/PriceLegend'
-import moment from 'moment'
 
 class HistoricPrice extends Component {
-  static defaultProps = {
-    period: '1MIN',
-    startTime: moment().subtract(30, 'minutes'),
-  }
-
   render() {
-    let rateCount = Math.floor(moment.duration(moment().diff(this.props.startTime)).asMinutes())
-
     return [
       <Heading key="head">Historic Price</Heading>,
       <Table key="body">
@@ -22,7 +14,7 @@ class HistoricPrice extends Component {
             </TableCell>
             <TableCell>
             </TableCell>
-            <TableCell colSpan={rateCount}>
+            <TableCell colSpan={this.props.rateCount}>
               Rates (BTC) minutes ago
             </TableCell>
           </TableRow>
@@ -35,17 +27,17 @@ class HistoricPrice extends Component {
             <TableCell>
               Abbv
             </TableCell>
-            {Array(rateCount).fill().map((_, index) => {
+            {Array(this.props.rateCount).fill().map((_, index) => {
               return (
                 <TableCell key={index}>
-                  {rateCount - index}m
+                  {this.props.rateCount - index}m
                 </TableCell>
               )
             })}
           </TableRow>
         </TableHeader>
         <TableBody>
-          <PriceList prices={this.props.prices} rateCount={rateCount} />
+          <PriceList prices={this.props.prices} rateCount={this.props.rateCount} />
         </TableBody>
       </Table>,
       <PriceLegend key="legend" />

@@ -26,7 +26,7 @@ class CurrentPriceContainer extends Component {
   }
 
   getPrices = () => {
-    api.testDataGetExchangeRateFor(Object.keys(coins), this.props.outputValue)
+    api.getExchangeRateFor(Object.keys(coins), this.props.outputValue)
       .then((prices) => {
         this.setState({
           prices: prices

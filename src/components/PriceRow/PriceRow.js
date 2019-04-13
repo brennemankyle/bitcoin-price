@@ -20,6 +20,7 @@ class PriceRow extends Component {
         {this.props.rates.map((rate, index) => {
           let className = ''
 
+          // TODO: Not sure I like having the child component know about min/max values
           if (this.props.minRates[index] === this.props.coinKey) {
             className = 'best-price'
           } else if (this.props.maxRates[index] === this.props.coinKey) {

@@ -10,7 +10,7 @@ class HistoricPriceContainer extends Component {
     timerMillisecond: 3000,
     outputValue: 'Bitcoin',
     period: '1MIN',
-    startTime: moment().subtract(30, 'minutes'),
+    minutesAgo: 30,
   }
 
   constructor(props) {
@@ -22,9 +22,9 @@ class HistoricPriceContainer extends Component {
   }
 
   render() {
-    // TODO add indicator of last refresh
+    // TODO: add indicator of last refresh
     return [
-      <HistoricPrice key="price" prices={this.state.prices} />,
+      <HistoricPrice key="price" prices={this.state.prices} rateCount={this.props.minutesAgo} />,
       <Button key="refresh" label="Refresh" onClick={this.getPrices} />,
     ]
   }
@@ -34,7 +34,7 @@ class HistoricPriceContainer extends Component {
   }
 
   getPrices = () => {
-    api.testDataGetHistoricRateFor(Object.keys(coins), this.props.outputValue, this.props.startTime, this.props.period)
+    api.getHistoricRateFor(Object.keys(coins), this.props.outputValue, this.props.minutesAgo, this.props.period)
       .then((prices) => {
         this.setState({
           prices: prices
